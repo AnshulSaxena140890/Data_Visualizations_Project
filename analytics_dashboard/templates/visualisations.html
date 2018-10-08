@@ -1,0 +1,81 @@
+
+{% extends "base.html" %}
+{%block content %}
+
+
+<div class="table-responsive">	
+<table class="table table-hover table-dark" >
+<tr>
+  <th scope="col">Advertiser</th>
+  <th scope="col">Publisher</th>
+  <th scope="col">Impressions</th>
+  <th scope="col">Clicks</th>
+  <th scope="col">Installs</th>
+  <th scope="col">Purchases</th>
+
+</tr>
+{% for b in objs %}
+<tr>
+  <td>{{ b.advertiser_name }}</td>
+  <td>{{ b.publisher_name }}</td>
+  <td>{{ b.impression__sum}}</td>
+  <td>{{b.click__sum}}</td>
+  <td>{{b.install__sum}}</td>
+  <td>{{b.purchase__sum}}</td>
+
+</tr>
+{% endfor %}
+</table>
+<div class="pagination">
+
+  {% if objs.has_previous %}
+    <a class="pagination-action" href="?page=1">
+     <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+    </a>
+    <a class="pagination-action" href="?page={{ objs.previous_page_number }}">
+      <i class="fa fa-angle-left" aria-hidden="true"></i>
+    </a>
+  {% endif %}
+ 
+  {% for num in objs.paginator.page_range %}
+    
+    {% if objs.number == num %}
+    <span class="pagination-number pagination-current">{{ num }}</span>
+    {% elif num > objs.number|add:'-3' and num < objs.number|add:'3' %}
+    <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+ 
+  {% endfor %}
+    
+  {% if objs.has_next %}
+    <a class="pagination-action" href="?page={{ objs.next_page_number }}">
+      <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </a>
+    <a class="pagination-action" href="?page={{ objs.paginator.num_pages }}">
+      <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+    </a>
+  {% endif %}
+    
+</div>
+
+</div>
+
+
+<!---------------------------------------------------------------------------------------------------------------->
+
+<br><br><br>
+<div style="
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%">
+<iframe width="800" height="800" frameborder="0" scrolling="no" src="{{obj4}}"></iframe>
+ <br><br>
+
+<iframe width="800" height="800" frameborder="0" scrolling="no" src="{{r1}}"></iframe> 
+
+</div>
+
+
+
+{% endblock %}
